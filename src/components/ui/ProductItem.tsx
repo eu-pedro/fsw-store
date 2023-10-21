@@ -9,7 +9,7 @@ interface ProductItemProps {
 
 export function ProductItem({ product }: ProductItemProps) {
   return (
-    <div className="flex w-[156px] flex-col gap-4">
+    <div className="flex w-[170px] flex-col gap-4">
       <div className="relative flex h-[170px] items-center justify-center rounded-lg bg-accent">
         <Image
           src={product.imageUrls[0]}
@@ -34,10 +34,10 @@ export function ProductItem({ product }: ProductItemProps) {
           {product.name}
         </p>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 overflow-hidden  whitespace-nowrap">
           {product.discountPercentage > 0 ? (
             <>
-              <p className="text-normal font-semibold">
+              <p className="text-normal font-semibold ">
                 R$ {product.totalPrice.toFixed(2)}
               </p>
 
