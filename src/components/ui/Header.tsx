@@ -10,11 +10,18 @@ import {
 } from 'lucide-react'
 import { Button } from './button'
 import { Card } from './card'
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './sheet'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from './sheet'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { Avatar, AvatarImage } from './avatar'
 import { AvatarFallback } from '@radix-ui/react-avatar'
 import { Separator } from './separator'
+import Link from 'next/link'
 
 export function Header() {
   const { status, data } = useSession()
@@ -94,10 +101,17 @@ export function Header() {
               Ofertas
             </Button>
 
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <ListOrderedIcon size={16} />
-              Catálogo
-            </Button>
+            <SheetClose asChild>
+              <Link href="/catalog">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <ListOrderedIcon size={16} />
+                  Catálogo
+                </Button>
+              </Link>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
