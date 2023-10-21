@@ -4,6 +4,7 @@ import './globals.css'
 import { ReactNode } from 'react'
 import { Header } from '@/components/ui/Header'
 import { AuthProvider } from '@/providers/auth'
+import { Footer } from '@/components/ui/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthProvider>
           <Header />
           {children}
+          <Footer />
         </AuthProvider>
       </body>
     </html>
