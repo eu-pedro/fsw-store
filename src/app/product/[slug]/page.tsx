@@ -1,5 +1,7 @@
 import { prismaClient } from '@/lib/prisma'
 import { ProductImages } from './components/ProductImages'
+import { ProductInfo } from './components/ProductInfo'
+import { computeProductTotalPrice } from '@/helpers/product'
 
 export default async function ProductDetailsPage({
   params: { slug },
@@ -15,8 +17,9 @@ export default async function ProductDetailsPage({
   if (!product) return null
 
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <ProductImages imageUrls={product.imageUrls} name={product.name} />
+      <ProductInfo product={computeProductTotalPrice(product)} />
     </div>
   )
 }
