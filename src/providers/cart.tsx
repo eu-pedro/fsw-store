@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client'
 import { ProductWithTotalPrice } from '@/helpers/product'
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useMemo, useState } from 'react'
 
 export interface CartProduct extends ProductWithTotalPrice {
   quantity: number
@@ -12,6 +12,9 @@ interface ICartContext {
   cartTotalPrice: number
   cartBasePrice: number
   cartTotalDiscount: number
+  total: number
+  subtotal: number
+  totalDiscount: number
   addProductsToCard: (product: CartProduct) => void
   decreaseProductQuantity: (productId: string) => void
   increaseProductQuantity: (productId: string) => void
@@ -23,6 +26,9 @@ export const CartContext = createContext<ICartContext>({
   cartBasePrice: 0,
   cartTotalDiscount: 0,
   cartTotalPrice: 0,
+  total: 0,
+  subtotal: 0,
+  totalDiscount: 0,
   addProductsToCard: () => {},
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
@@ -31,6 +37,21 @@ export const CartContext = createContext<ICartContext>({
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<CartProduct[]>([])
+  // total sem desconto
+  const subtotal = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.basePrice)
+    }, 0)
+  }, [products])
+
+  // total com desconto
+  const total = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + product.totalPrice
+    }, 0)
+  }, [products])
+
+  const totalDiscount = subtotal - total
 
   function addProductsToCard(product: CartProduct) {
     // se o produto já estiver no carrinho, aumente a quantidade
@@ -110,6 +131,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         decreaseProductQuantity,
         increaseProductQuantity,
         removeProductFromCard,
+        total,
+        subtotal,
+        totalDiscount,
         cartBasePrice: 0,
         cartTotalDiscount: 0,
         cartTotalPrice: 0,
