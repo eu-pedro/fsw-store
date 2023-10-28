@@ -40,14 +40,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // total sem desconto
   const subtotal = useMemo(() => {
     return products.reduce((acc, product) => {
-      return acc + Number(product.basePrice) * product.quantity
+      return acc + Number(product.basePrice)
     }, 0)
   }, [products])
 
   // total com desconto
   const total = useMemo(() => {
     return products.reduce((acc, product) => {
-      return acc + product.totalPrice * product.quantity
+      return acc + product.totalPrice
     }, 0)
   }, [products])
 
@@ -71,6 +71,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
           return cartProduct
         }),
       )
+
+      return
     }
 
     // se não, adicione o produto à lista
