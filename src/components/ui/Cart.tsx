@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ShoppingCartIcon } from 'lucide-react'
 import { Badge } from './badge'
 import { useContext } from 'react'
